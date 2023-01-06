@@ -1,11 +1,19 @@
 package com.CarRental.UserService.service.impl;
 
+import com.CarRental.UserService.domain.Client;
 import com.CarRental.UserService.domain.RentalManager;
 import com.CarRental.UserService.dto.CreateRentalManagerDto;
 import com.CarRental.UserService.dto.RentalManagerDto;
+import com.CarRental.UserService.dto.TokenRequestDto;
+import com.CarRental.UserService.dto.TokenResponseDto;
+import com.CarRental.UserService.exceptions.NotFoundException;
 import com.CarRental.UserService.mapper.RentalManagerMapper;
 import com.CarRental.UserService.repository.RentalManagerRepository;
 import com.CarRental.UserService.service.RentalManagerService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public class RentalManagerServiceImpl implements RentalManagerService {
     private RentalManagerRepository rentalManagerRepository;
@@ -19,6 +27,11 @@ public class RentalManagerServiceImpl implements RentalManagerService {
     @Override
     public RentalManagerDto findRentalManager(String username) {
         return rentalManagerMapper.RentalManagerToRentalManagerDto(rentalManagerRepository.findByUsername(username));
+    }
+
+    @Override
+    public Page<RentalManagerDto> findAll(Pageable pageable) {
+        return rentalManagerRepository.findAll(pageable).map(rentalManagerMapper::RentalManagerToRentalManagerDto);
     }
 
     @Override
@@ -48,5 +61,20 @@ public class RentalManagerServiceImpl implements RentalManagerService {
     @Override
     public void deleteRentalManager(Long id) {
         rentalManagerRepository.deleteById(id);
+    }
+
+    @Override
+    public TokenResponseDto login(TokenRequestDto tokenRequestDto) throws NotFoundException {
+        RentalManager rentalManager = rentalManagerRepository
+                .findByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
+                .orElseThrow(() -> new NotFoundException(String
+                        .format("User with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
+                                tokenRequestDto.getPassword())));
+
+
+        Claims claims = Jwts.claims();
+        claims.put("id", rentalManager.getId());
+
+        return new TokenResponseDto();
     }
 }

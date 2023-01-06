@@ -1,9 +1,9 @@
 package com.CarRental.UserService.domain;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity
+@Table(indexes = {@Index(columnList = "username", unique = true)})
 public class RentalManager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +15,9 @@ public class RentalManager {
     private String dateOfBirth;
     private String name;
     private String surname;
+
+    @OneToOne(optional = false)
+    private Role role;
     //additional for rental menager
     private String companyName;
     private String dateOfHire;

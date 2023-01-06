@@ -4,10 +4,12 @@ import com.CarRental.UserService.domain.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
-    public Admin findByUsername(String username);
+    Admin findByUsername(String username);
 
-    public Admin findByUsernameAndPassword(String username, String password);
+    Optional<Admin> findByUsernameAndPassword(String username, String password);
 }

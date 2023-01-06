@@ -1,16 +1,15 @@
 package com.CarRental.UserService.service.impl;
 
 import com.CarRental.UserService.domain.Admin;
-import com.CarRental.UserService.dto.AdminDto;
-import com.CarRental.UserService.dto.CreateAdminDto;
-import com.CarRental.UserService.dto.TokenRequestDto;
-import com.CarRental.UserService.dto.TokenResponseDto;
+import com.CarRental.UserService.dto.*;
+import com.CarRental.UserService.exceptions.NotFoundException;
 import com.CarRental.UserService.mapper.AdminMapper;
 import com.CarRental.UserService.repository.AdminRepository;
 import com.CarRental.UserService.service.AdminService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,6 +25,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public AdminDto findAdmin(String username) {
         return adminMapper.adminToAdminDto(adminRepository.findByUsername(username));
+    }
+
+    @Override
+    public Page<AdminDto> findAll(Pageable pageable) {
+        return adminRepository.findAll(pageable).map(adminMapper::adminToAdminDto);
     }
 
     @Override
@@ -55,11 +59,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public TokenResponseDto login(TokenRequestDto tokenRequestDto) {
+    public TokenResponseDto login(TokenRequestDto tokenRequestDto){
         Admin admin = adminRepository
-                .findByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword());
-                //.orElseThrow(() -> new ChangeSetPersister.NotFoundException(String
-                //        .format("User with username %s and password %s not found.", tokenRequestDto.getUsername(), tokenRequestDto.getPassword())));
+                .findByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
+                .orElseThrow(() -> new NotFoundException(String
+                        .format("User with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
+                                tokenRequestDto.getPassword())));
+
 
         Claims claims = Jwts.claims();
         claims.put("id", admin.getId());

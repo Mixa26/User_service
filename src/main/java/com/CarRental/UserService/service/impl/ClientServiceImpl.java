@@ -1,11 +1,16 @@
 package com.CarRental.UserService.service.impl;
 
+import com.CarRental.UserService.domain.Admin;
 import com.CarRental.UserService.domain.Client;
-import com.CarRental.UserService.dto.ClientDto;
-import com.CarRental.UserService.dto.CreateClientDto;
+import com.CarRental.UserService.dto.*;
+import com.CarRental.UserService.exceptions.NotFoundException;
 import com.CarRental.UserService.mapper.ClientMapper;
 import com.CarRental.UserService.repository.ClientRepository;
 import com.CarRental.UserService.service.ClientService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public class ClientServiceImpl implements ClientService {
 
@@ -21,6 +26,11 @@ public class ClientServiceImpl implements ClientService {
     public ClientDto findClient(String username)
     {
         return clientMapper.ClientToClientDto(clientRepository.findByUsername(username));
+    }
+
+    @Override
+    public Page<ClientDto> findAll(Pageable pageable) {
+        return clientRepository.findAll(pageable).map(clientMapper::ClientToClientDto);
     }
 
     @Override
@@ -54,5 +64,20 @@ public class ClientServiceImpl implements ClientService {
     public void deleteClient(Long id)
     {
         clientRepository.deleteById(id);
+    }
+
+    @Override
+    public TokenResponseDto login(TokenRequestDto tokenRequestDto) throws NotFoundException {
+        Client client = clientRepository
+                .findByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
+                .orElseThrow(() -> new NotFoundException(String
+                    .format("User with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
+                            tokenRequestDto.getPassword())));
+
+
+        Claims claims = Jwts.claims();
+        claims.put("id", client.getId());
+
+        return new TokenResponseDto();
     }
 }
