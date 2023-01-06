@@ -4,6 +4,7 @@ import com.CarRental.UserService.dto.RentalManagerDto;
 import com.CarRental.UserService.dto.CreateRentalManagerDto;
 import com.CarRental.UserService.security.CheckSecurity;
 import com.CarRental.UserService.service.RentalManagerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/rentalManager")
 public class RentalManagerController {
+    @Autowired
     private RentalManagerService rentalManagerService;
 
     public RentalManagerController(RentalManagerService rentalManagerService) {

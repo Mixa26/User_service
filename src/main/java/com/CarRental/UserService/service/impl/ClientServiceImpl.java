@@ -11,7 +11,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
@@ -69,9 +71,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public TokenResponseDto login(TokenRequestDto tokenRequestDto) throws NotFoundException {
         Client client = clientRepository
-                .findByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
+                .findByEmailAndPassword(tokenRequestDto.getEmail(), tokenRequestDto.getPassword())
                 .orElseThrow(() -> new NotFoundException(String
-                    .format("User with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
+                    .format("User with username: %s and password: %s not found.", tokenRequestDto.getEmail(),
                             tokenRequestDto.getPassword())));
 
 

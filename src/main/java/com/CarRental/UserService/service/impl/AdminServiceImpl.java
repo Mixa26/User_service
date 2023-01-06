@@ -61,9 +61,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public TokenResponseDto login(TokenRequestDto tokenRequestDto){
         Admin admin = adminRepository
-                .findByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
+                .findByEmailAndPassword(tokenRequestDto.getEmail(), tokenRequestDto.getPassword())
                 .orElseThrow(() -> new NotFoundException(String
-                        .format("User with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
+                        .format("User with username: %s and password: %s not found.", tokenRequestDto.getEmail(),
                                 tokenRequestDto.getPassword())));
 
 

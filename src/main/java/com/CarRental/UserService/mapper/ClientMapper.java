@@ -3,7 +3,9 @@ package com.CarRental.UserService.mapper;
 import com.CarRental.UserService.domain.Client;
 import com.CarRental.UserService.dto.ClientDto;
 import com.CarRental.UserService.dto.CreateClientDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClientMapper {
     public ClientDto ClientToClientDto(Client client)
     {

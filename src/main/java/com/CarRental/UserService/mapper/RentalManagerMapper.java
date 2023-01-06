@@ -3,7 +3,9 @@ package com.CarRental.UserService.mapper;
 import com.CarRental.UserService.domain.RentalManager;
 import com.CarRental.UserService.dto.RentalManagerDto;
 import com.CarRental.UserService.dto.CreateRentalManagerDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RentalManagerMapper {
     public RentalManagerDto RentalManagerToRentalManagerDto(RentalManager rentalManager)
     {

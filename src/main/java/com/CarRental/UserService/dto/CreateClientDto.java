@@ -8,6 +8,9 @@ public class CreateClientDto {
     private String dateOfBirth;
     private String name;
     private String surname;
+
+    private boolean canLogin;
+
     //additional for client
     private Integer passportNum;
     private Integer totalRentalTimeInDays;

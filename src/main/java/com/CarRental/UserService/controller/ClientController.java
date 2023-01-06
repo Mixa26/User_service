@@ -4,13 +4,17 @@ import com.CarRental.UserService.dto.ClientDto;
 import com.CarRental.UserService.dto.CreateClientDto;
 import com.CarRental.UserService.security.CheckSecurity;
 import com.CarRental.UserService.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/client")
 public class ClientController {
+    @Autowired
     private ClientService clientService;
 
     public ClientController(ClientService clientService) {

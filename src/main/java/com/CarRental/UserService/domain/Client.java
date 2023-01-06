@@ -8,17 +8,23 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique=true)
     private String username;
     private String password;
+    @Column(unique=true)
     private String email;
+    @Column(unique=true)
     private String phoneNum;
     private String dateOfBirth;
     private String name;
     private String surname;
 
+    private boolean canLogin;
+
     @OneToOne(optional = false)
     private Role role;
     //additional for client
+    @Column(unique=true)
     private Integer passportNum;
     private Integer totalRentalTimeInDays;
     private Integer clientRank;

@@ -8,6 +8,9 @@ public class CreateRentalManagerDto {
     private String dateOfBirth;
     private String name;
     private String surname;
+
+    private boolean canLogin;
+
     //additional for rental menager
     private String companyName;
     private String dateOfHire;

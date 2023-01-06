@@ -6,6 +6,7 @@ import com.CarRental.UserService.dto.TokenRequestDto;
 import com.CarRental.UserService.dto.TokenResponseDto;
 import com.CarRental.UserService.security.CheckSecurity;
 import com.CarRental.UserService.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
+    @Autowired
     private AdminService adminService;
 
     public AdminController(AdminService adminService) {
