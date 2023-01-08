@@ -21,7 +21,7 @@ public class RentalManager {
 
     private boolean canLogin;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Role role;
     //additional for rental menager
     @Column(unique=true)
@@ -107,5 +107,21 @@ public class RentalManager {
 
     public void setDateOfHire(String dateOfHire) {
         this.dateOfHire = dateOfHire;
+    }
+
+    public boolean isCanLogin() {
+        return canLogin;
+    }
+
+    public void setCanLogin(boolean canLogin) {
+        this.canLogin = canLogin;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

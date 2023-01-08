@@ -9,6 +9,7 @@ import com.CarRental.UserService.dto.TokenResponseDto;
 import com.CarRental.UserService.exceptions.NotFoundException;
 import com.CarRental.UserService.mapper.RentalManagerMapper;
 import com.CarRental.UserService.repository.RentalManagerRepository;
+import com.CarRental.UserService.security.TokenService;
 import com.CarRental.UserService.service.RentalManagerService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -21,9 +22,12 @@ public class RentalManagerServiceImpl implements RentalManagerService {
     private RentalManagerRepository rentalManagerRepository;
     private RentalManagerMapper rentalManagerMapper;
 
-    public RentalManagerServiceImpl(RentalManagerRepository rentalManagerRepository, RentalManagerMapper rentalManagerMapper) {
+    private TokenService tokenService;
+
+    public RentalManagerServiceImpl(RentalManagerRepository rentalManagerRepository, RentalManagerMapper rentalManagerMapper, TokenService tokenService) {
         this.rentalManagerRepository = rentalManagerRepository;
         this.rentalManagerMapper = rentalManagerMapper;
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -53,9 +57,18 @@ public class RentalManagerServiceImpl implements RentalManagerService {
         rentalManager.setDateOfBirth(rentalManagerDto.getDateOfBirth());
         rentalManager.setName(rentalManagerDto.getName());
         rentalManager.setSurname(rentalManagerDto.getSurname());
+        rentalManager.setCanLogin(rentalManagerDto.isCanLogin());
         //additional for client
         rentalManager.setCompanyName(rentalManagerDto.getCompanyName());
         rentalManager.setDateOfHire(rentalManagerDto.getDateOfHire());
+        rentalManagerRepository.save(rentalManager);
+        return rentalManagerMapper.RentalManagerToRentalManagerDto(rentalManager);
+    }
+
+    @Override
+    public RentalManagerDto canLoginRentalManager(CreateRentalManagerDto rentalManagerDto) {
+        RentalManager rentalManager = rentalManagerRepository.findByUsername(rentalManagerDto.getUsername());
+        rentalManager.setCanLogin(rentalManagerDto.isCanLogin());
         rentalManagerRepository.save(rentalManager);
         return rentalManagerMapper.RentalManagerToRentalManagerDto(rentalManager);
     }
@@ -76,7 +89,7 @@ public class RentalManagerServiceImpl implements RentalManagerService {
 
         Claims claims = Jwts.claims();
         claims.put("id", rentalManager.getId());
-
-        return new TokenResponseDto();
+        claims.put("role", rentalManager.getRole());
+        return new TokenResponseDto(tokenService.generate(claims));
     }
 }

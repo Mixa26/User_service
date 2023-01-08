@@ -21,7 +21,7 @@ public class Client {
 
     private boolean canLogin;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Role role;
     //additional for client
     @Column(unique=true)
@@ -115,5 +115,21 @@ public class Client {
 
     public void setClientRank(Integer clientRank) {
         this.clientRank = clientRank;
+    }
+
+    public boolean isCanLogin() {
+        return canLogin;
+    }
+
+    public void setCanLogin(boolean canLogin) {
+        this.canLogin = canLogin;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

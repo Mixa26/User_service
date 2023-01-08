@@ -5,6 +5,7 @@ import com.CarRental.UserService.dto.*;
 import com.CarRental.UserService.exceptions.NotFoundException;
 import com.CarRental.UserService.mapper.AdminMapper;
 import com.CarRental.UserService.repository.AdminRepository;
+import com.CarRental.UserService.security.TokenService;
 import com.CarRental.UserService.service.AdminService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,9 +18,12 @@ public class AdminServiceImpl implements AdminService {
     private AdminRepository adminRepository;
     private AdminMapper adminMapper;
 
-    public AdminServiceImpl(AdminRepository adminRepository, AdminMapper adminMapper) {
+    private TokenService tokenService;
+
+    public AdminServiceImpl(AdminRepository adminRepository, AdminMapper adminMapper, TokenService tokenService) {
         this.adminRepository = adminRepository;
         this.adminMapper = adminMapper;
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -69,7 +73,7 @@ public class AdminServiceImpl implements AdminService {
 
         Claims claims = Jwts.claims();
         claims.put("id", admin.getId());
-
-        return new TokenResponseDto();
+        claims.put("role", admin.getRole());
+        return new TokenResponseDto(tokenService.generate(claims));
     }
 }

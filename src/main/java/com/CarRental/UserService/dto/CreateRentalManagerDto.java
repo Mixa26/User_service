@@ -86,4 +86,12 @@ public class CreateRentalManagerDto {
     public void setDateOfHire(String dateOfHire) {
         this.dateOfHire = dateOfHire;
     }
+
+    public boolean isCanLogin() {
+        return canLogin;
+    }
+
+    public void setCanLogin(boolean canLogin) {
+        this.canLogin = canLogin;
+    }
 }

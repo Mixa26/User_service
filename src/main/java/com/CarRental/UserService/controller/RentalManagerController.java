@@ -49,6 +49,13 @@ public class RentalManagerController {
         return new ResponseEntity<>(rentalManagerService.updateRentalManager(rentalManagerDto), HttpStatus.OK);
     }
 
+    @PutMapping("/canLogin")
+    @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
+    public ResponseEntity<RentalManagerDto> canLoginRentalManager(@RequestHeader("Authorization") String authorization, @RequestBody CreateRentalManagerDto rentalManagerDto)
+    {
+        return new ResponseEntity<>(rentalManagerService.canLoginRentalManager(rentalManagerDto), HttpStatus.OK);
+    }
+
     @DeleteMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<?> deleteRentalManager(@RequestHeader("Authorization") String authorization, Long id)

@@ -95,4 +95,12 @@ public class CreateClientDto {
     public void setClientRank(Integer clientRank) {
         this.clientRank = clientRank;
     }
+
+    public boolean isCanLogin() {
+        return canLogin;
+    }
+
+    public void setCanLogin(boolean canLogin) {
+        this.canLogin = canLogin;
+    }
 }

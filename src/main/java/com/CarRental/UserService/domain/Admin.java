@@ -20,7 +20,7 @@ public class Admin {
     private String name;
     private String surname;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Role role;
 
     public Long getId() {
@@ -85,5 +85,13 @@ public class Admin {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -2,6 +2,7 @@ package com.CarRental.UserService.controller;
 
 import com.CarRental.UserService.dto.ClientDto;
 import com.CarRental.UserService.dto.CreateClientDto;
+import com.CarRental.UserService.dto.DiscountDto;
 import com.CarRental.UserService.security.CheckSecurity;
 import com.CarRental.UserService.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,13 @@ public class ClientController {
         return new ResponseEntity<>(clientService.findAll(pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/discount")
+    @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
+    public ResponseEntity<DiscountDto> getAllClient(@RequestHeader("Authorization") String authorization, @PathVariable("id") Long id)
+    {
+        return new ResponseEntity<>(clientService.findDiscount(id), HttpStatus.OK);
+    }
+
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN","ROLE_CLIENT"})
     public ResponseEntity<ClientDto> addClient(@RequestHeader("Authorization") String authorization, @RequestBody CreateClientDto clientDto)
@@ -47,6 +55,13 @@ public class ClientController {
     public ResponseEntity<ClientDto> updateClient(@RequestHeader("Authorization") String authorization, @RequestBody CreateClientDto clientDto)
     {
         return new ResponseEntity<>(clientService.updateClient(clientDto), HttpStatus.OK);
+    }
+
+    @PutMapping("/canLogin")
+    @CheckSecurity(roles = {"ROLE_ADMIN"})
+    public ResponseEntity<ClientDto> canLoginClient(@RequestHeader("Authorization") String authorization, @RequestBody CreateClientDto clientDto)
+    {
+        return new ResponseEntity<>(clientService.canLoginClient(clientDto), HttpStatus.OK);
     }
 
     @DeleteMapping

@@ -16,6 +16,8 @@ public interface RentalManagerService {
 
     RentalManagerDto updateRentalManager(CreateRentalManagerDto rentalManagerDto);
 
+    RentalManagerDto canLoginRentalManager(CreateRentalManagerDto rentalManagerDto);
+
     void deleteRentalManager(Long id);
 
     TokenResponseDto login(TokenRequestDto tokenRequestDto);

@@ -3,10 +3,14 @@ package com.CarRental.UserService.mapper;
 import com.CarRental.UserService.domain.Client;
 import com.CarRental.UserService.dto.ClientDto;
 import com.CarRental.UserService.dto.CreateClientDto;
+import com.CarRental.UserService.repository.RoleRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ClientMapper {
+
+    RoleRepository roleRepository;
+
     public ClientDto ClientToClientDto(Client client)
     {
         ClientDto clientDto = new ClientDto();
@@ -30,6 +34,7 @@ public class ClientMapper {
         client.setDateOfBirth(clientDto.getDateOfBirth());
         client.setName(clientDto.getName());
         client.setSurname(clientDto.getSurname());
+        client.setRole(roleRepository.findByName("ROLE_CLIENT"));
         //additional for client
         client.setPassportNum(clientDto.getPassportNum());
         client.setTotalRentalTimeInDays(clientDto.getTotalRentalTimeInDays());
