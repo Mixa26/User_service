@@ -1,10 +1,11 @@
 package com.CarRental.UserService.service.impl;
 
-import com.CarRental.UserService.domain.Admin;
 import com.CarRental.UserService.domain.Client;
 import com.CarRental.UserService.domain.ClientRank;
 import com.CarRental.UserService.dto.*;
+import com.CarRental.UserService.dto.notifications.RegistrationNotificationDto;
 import com.CarRental.UserService.exceptions.NotFoundException;
+import com.CarRental.UserService.helper.MessageHelper;
 import com.CarRental.UserService.mapper.ClientMapper;
 import com.CarRental.UserService.repository.ClientRankRepository;
 import com.CarRental.UserService.repository.ClientRepository;
@@ -12,8 +13,11 @@ import com.CarRental.UserService.security.TokenService;
 import com.CarRental.UserService.service.ClientService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,11 +32,22 @@ public class ClientServiceImpl implements ClientService {
 
     private TokenService tokenService;
 
-    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper, ClientRankRepository clientRankRepository, TokenService tokenService) {
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    private MessageHelper messageHelper;
+
+    private String destination;
+
+    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper, ClientRankRepository clientRankRepository, TokenService tokenService,
+                             JmsTemplate jmsTemplate, @Value("${destination.notify}") String destination, MessageHelper messageHelper){
         this.clientRepository = clientRepository;
         this.clientMapper = clientMapper;
         this.clientRankRepository = clientRankRepository;
         this.tokenService = tokenService;
+        this.jmsTemplate = jmsTemplate;
+        this.destination = destination;
+        this.messageHelper = messageHelper;
     }
 
     @Override
@@ -51,6 +66,7 @@ public class ClientServiceImpl implements ClientService {
     {
         Client client = clientMapper.ClientDtoToClient(clientDto);
         clientRepository.save(client);
+        jmsTemplate.convertAndSend(destination, messageHelper.createTextMessage(new RegistrationNotificationDto(clientDto.getName(), clientDto.getSurname(), clientDto.getEmail())));
         return clientMapper.ClientToClientDto(client);
     }
 

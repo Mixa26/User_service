@@ -1,6 +1,6 @@
 package com.CarRental.UserService.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(indexes = {@Index(columnList = "username", unique = true)})
