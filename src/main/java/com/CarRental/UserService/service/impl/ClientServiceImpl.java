@@ -85,7 +85,6 @@ public class ClientServiceImpl implements ClientService {
         //additional for client
         client.setPassportNum(clientDto.getPassportNum());
         client.setTotalRentalTimeInDays(clientDto.getTotalRentalTimeInDays());
-        client.setClientRank(clientDto.getClientRank());
         clientRepository.save(client);
         return clientMapper.ClientToClientDto(client);
     }

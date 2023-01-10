@@ -14,8 +14,6 @@ public class CreateClientDto {
     //additional for client
     private Integer passportNum;
     private Integer totalRentalTimeInDays;
-    private Integer clientRank;
-
     public String getUsername() {
         return username;
     }
@@ -86,14 +84,6 @@ public class CreateClientDto {
 
     public void setTotalRentalTimeInDays(Integer totalRentalTimeInDays) {
         this.totalRentalTimeInDays = totalRentalTimeInDays;
-    }
-
-    public Integer getClientRank() {
-        return clientRank;
-    }
-
-    public void setClientRank(Integer clientRank) {
-        this.clientRank = clientRank;
     }
 
     public boolean isCanLogin() {

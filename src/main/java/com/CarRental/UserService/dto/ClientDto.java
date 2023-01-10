@@ -7,7 +7,6 @@ public class ClientDto {
     private String email;
     //additional for client
     private Integer totalRentalTimeInDays;
-    private Integer clientRank;
 
     public String getUsername() {
         return username;
@@ -49,11 +48,4 @@ public class ClientDto {
         this.totalRentalTimeInDays = totalRentalTimeInDays;
     }
 
-    public Integer getClientRank() {
-        return clientRank;
-    }
-
-    public void setClientRank(Integer clientRank) {
-        this.clientRank = clientRank;
-    }
 }

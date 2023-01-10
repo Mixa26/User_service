@@ -11,6 +11,10 @@ public class ClientMapper {
 
     RoleRepository roleRepository;
 
+    public ClientMapper(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
     public ClientDto ClientToClientDto(Client client)
     {
         ClientDto clientDto = new ClientDto();
@@ -19,7 +23,6 @@ public class ClientMapper {
         clientDto.setSurname(client.getSurname());
         clientDto.setEmail(client.getEmail());
         clientDto.setTotalRentalTimeInDays(client.getTotalRentalTimeInDays());
-        clientDto.setClientRank(client.getClientRank());
 
         return clientDto;
     }
@@ -38,7 +41,6 @@ public class ClientMapper {
         //additional for client
         client.setPassportNum(clientDto.getPassportNum());
         client.setTotalRentalTimeInDays(clientDto.getTotalRentalTimeInDays());
-        client.setClientRank(clientDto.getClientRank());
 
         return client;
     }

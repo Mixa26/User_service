@@ -27,7 +27,6 @@ public class Client {
     @Column(unique=true)
     private Integer passportNum;
     private Integer totalRentalTimeInDays;
-    private Integer clientRank;
 
     public Long getId() {
         return id;
@@ -107,14 +106,6 @@ public class Client {
 
     public void setTotalRentalTimeInDays(Integer totalRentalTimeInDays) {
         this.totalRentalTimeInDays = totalRentalTimeInDays;
-    }
-
-    public Integer getClientRank() {
-        return clientRank;
-    }
-
-    public void setClientRank(Integer clientRank) {
-        this.clientRank = clientRank;
     }
 
     public boolean isCanLogin() {

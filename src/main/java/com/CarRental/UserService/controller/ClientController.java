@@ -44,8 +44,7 @@ public class ClientController {
     }
 
     @PostMapping
-    @CheckSecurity(roles = {"ROLE_ADMIN","ROLE_CLIENT"})
-    public ResponseEntity<ClientDto> addClient(@RequestHeader("Authorization") String authorization, @RequestBody CreateClientDto clientDto)
+    public ResponseEntity<ClientDto> addClient(@RequestBody CreateClientDto clientDto)
     {
         return new ResponseEntity<>(clientService.createClient(clientDto), HttpStatus.OK);
     }
