@@ -37,6 +37,8 @@ public class ClientMapper {
         client.setDateOfBirth(clientDto.getDateOfBirth());
         client.setName(clientDto.getName());
         client.setSurname(clientDto.getSurname());
+        client.setCanLogin(clientDto.isCanLogin());
+        client.setRegistered(clientDto.getRegistered());
         client.setRole(roleRepository.findByName("ROLE_CLIENT"));
         //additional for client
         client.setPassportNum(clientDto.getPassportNum());

@@ -9,6 +9,7 @@ public class CreateRentalManagerDto {
     private String name;
     private String surname;
 
+    private String registered;
     private boolean canLogin;
 
     //additional for rental menager
@@ -93,5 +94,13 @@ public class CreateRentalManagerDto {
 
     public void setCanLogin(boolean canLogin) {
         this.canLogin = canLogin;
+    }
+
+    public String getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(String registered) {
+        this.registered = registered;
     }
 }

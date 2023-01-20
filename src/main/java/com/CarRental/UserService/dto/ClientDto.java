@@ -6,7 +6,7 @@ public class ClientDto {
     private String surname;
     private String email;
     //additional for client
-    private Integer totalRentalTimeInDays;
+    private Long totalRentalTimeInDays;
 
     public String getUsername() {
         return username;
@@ -40,12 +40,13 @@ public class ClientDto {
         this.email = email;
     }
 
-    public Integer getTotalRentalTimeInDays() {
+    public Long getTotalRentalTimeInDays() {
         return totalRentalTimeInDays;
     }
 
-    public void setTotalRentalTimeInDays(Integer totalRentalTimeInDays) {
+    public void setTotalRentalTimeInDays(Long totalRentalTimeInDays) {
         this.totalRentalTimeInDays = totalRentalTimeInDays;
     }
+
 
 }

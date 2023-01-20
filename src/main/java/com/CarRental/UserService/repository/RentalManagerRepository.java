@@ -12,4 +12,6 @@ public interface RentalManagerRepository extends JpaRepository<RentalManager, Lo
     RentalManager findByUsername(String username);
 
     Optional<RentalManager> findByEmailAndPassword(String username, String password);
+
+    RentalManager findByRegistered(String registered);
 }

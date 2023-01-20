@@ -9,11 +9,13 @@ public class CreateClientDto {
     private String name;
     private String surname;
 
+    private String registered;
+
     private boolean canLogin;
 
     //additional for client
     private Integer passportNum;
-    private Integer totalRentalTimeInDays;
+    private Long totalRentalTimeInDays;
     public String getUsername() {
         return username;
     }
@@ -78,11 +80,11 @@ public class CreateClientDto {
         this.passportNum = passportNum;
     }
 
-    public Integer getTotalRentalTimeInDays() {
+    public Long getTotalRentalTimeInDays() {
         return totalRentalTimeInDays;
     }
 
-    public void setTotalRentalTimeInDays(Integer totalRentalTimeInDays) {
+    public void setTotalRentalTimeInDays(Long totalRentalTimeInDays) {
         this.totalRentalTimeInDays = totalRentalTimeInDays;
     }
 
@@ -92,5 +94,13 @@ public class CreateClientDto {
 
     public void setCanLogin(boolean canLogin) {
         this.canLogin = canLogin;
+    }
+
+    public String getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(String registered) {
+        this.registered = registered;
     }
 }

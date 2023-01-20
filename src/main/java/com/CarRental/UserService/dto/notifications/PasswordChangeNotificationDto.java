@@ -1,25 +1,25 @@
 package com.CarRental.UserService.dto.notifications;
 
-public class RegistrationNotificationDto {
+public class PasswordChangeNotificationDto {
 
     private Long id;
     private String name;
 
     private String surname;
 
+    private String username;
+
     private String email;
 
-    private String activationLink;
-
-    public RegistrationNotificationDto(){
+    public PasswordChangeNotificationDto(){
     }
 
-    public RegistrationNotificationDto(Long id, String name, String surname, String email, String activationLink) {
+    public PasswordChangeNotificationDto(Long id, String name, String surname, String username, String email) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.username = username;
         this.email = email;
-        this.activationLink = activationLink;
     }
 
     public String getName() {
@@ -38,20 +38,20 @@ public class RegistrationNotificationDto {
         this.surname = surname;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getActivationLink() {
-        return activationLink;
-    }
-
-    public void setActivationLink(String activationLink) {
-        this.activationLink = activationLink;
     }
 
     public Long getId() {

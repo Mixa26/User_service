@@ -7,17 +7,22 @@ import org.springframework.data.domain.Pageable;
 public interface ClientService {
     ClientDto findClient(String username);
 
+    ClientDto findClient(Long id);
+
     Page<ClientDto> findAll(Pageable pageable);
 
-    ClientDto createClient(CreateClientDto clientDto);
+    TokenResponseDto createClient(CreateClientDto clientDto);
 
     ClientDto updateClient(CreateClientDto clientDto);
 
-    ClientDto canLoginClient(CreateClientDto clientDto);
+    ClientDto canLoginClient(String username, boolean canLogin);
 
     DiscountDto findDiscount(Long id);
 
     void deleteClient(Long id);
 
+    void confirmUser(String salt);
     TokenResponseDto login(TokenRequestDto tokenRequestDto);
+
+    void updateRentalDays(Long days, Long id);
 }

@@ -19,6 +19,8 @@ public class RentalManager {
     private String name;
     private String surname;
 
+    private String registered;
+
     private boolean canLogin;
 
     @ManyToOne(optional = false)
@@ -123,5 +125,13 @@ public class RentalManager {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(String registered) {
+        this.registered = registered;
     }
 }

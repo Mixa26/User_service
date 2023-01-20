@@ -20,5 +20,6 @@ public interface RentalManagerService {
 
     void deleteRentalManager(Long id);
 
+    void confirmUser(String salt);
     TokenResponseDto login(TokenRequestDto tokenRequestDto);
 }

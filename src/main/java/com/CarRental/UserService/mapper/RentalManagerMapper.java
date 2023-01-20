@@ -30,6 +30,8 @@ public class RentalManagerMapper {
         rentalManager.setDateOfBirth(rentalManagerDto.getDateOfBirth());
         rentalManager.setName(rentalManagerDto.getName());
         rentalManager.setSurname(rentalManagerDto.getSurname());
+        rentalManager.setCanLogin(rentalManagerDto.isCanLogin());
+        rentalManager.setRegistered(rentalManager.getRegistered());
         //additional for RentalManager
         rentalManager.setCompanyName(rentalManagerDto.getCompanyName());
         rentalManager.setDateOfHire(rentalManagerDto.getDateOfHire());

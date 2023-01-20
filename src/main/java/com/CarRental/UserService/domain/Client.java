@@ -19,6 +19,8 @@ public class Client {
     private String name;
     private String surname;
 
+    private String registered;
+
     private boolean canLogin;
 
     @ManyToOne(optional = false)
@@ -26,7 +28,7 @@ public class Client {
     //additional for client
     @Column(unique=true)
     private Integer passportNum;
-    private Integer totalRentalTimeInDays;
+    private Long totalRentalTimeInDays;
 
     public Long getId() {
         return id;
@@ -100,11 +102,11 @@ public class Client {
         this.passportNum = passportNum;
     }
 
-    public Integer getTotalRentalTimeInDays() {
+    public Long getTotalRentalTimeInDays() {
         return totalRentalTimeInDays;
     }
 
-    public void setTotalRentalTimeInDays(Integer totalRentalTimeInDays) {
+    public void setTotalRentalTimeInDays(Long totalRentalTimeInDays) {
         this.totalRentalTimeInDays = totalRentalTimeInDays;
     }
 
@@ -122,5 +124,13 @@ public class Client {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(String registered) {
+        this.registered = registered;
     }
 }

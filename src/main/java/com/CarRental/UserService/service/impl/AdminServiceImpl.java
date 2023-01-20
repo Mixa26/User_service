@@ -73,7 +73,7 @@ public class AdminServiceImpl implements AdminService {
 
         Claims claims = Jwts.claims();
         claims.put("id", admin.getId());
-        claims.put("role", admin.getRole());
+        claims.put("role", admin.getRole().getName());
         return new TokenResponseDto(tokenService.generate(claims));
     }
 }
